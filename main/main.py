@@ -2,7 +2,7 @@ from random import randint
 
 
 class PlayerAction:
-    players = []
+    player_list = []
 
     def __init__(self):
         self.name = input('Inter Your name: ').strip().lower()
@@ -10,11 +10,18 @@ class PlayerAction:
         self.__guess_num = 3
         self.__is_won = False
         self.__debug = True
-        self.players.append(self)
+        self.player_list.append(self)
 
     @classmethod
     def reset_players(cls):
-        cls.players.clear()
+        cls.player_list.clear()
+
+    def debug(self):
+        if self.__debug:
+            print({self.name, self.__quesion})
+
+    def __str__(self):
+        return self.name
 
     def check_answer(self):
         answer = int(input(F'{self.name} Pleas, pik number = '))
@@ -29,37 +36,22 @@ class PlayerAction:
             self.__miss_guess()
             print(F'{self.name}, you have only {self.__guess_num}')
             print(F'---------------------------')
-        else:
-            print('pleas inter a number')
-            return self.check_answer()
-
-    def debug(self):
-        if self.__debug:
-            print({self.name, self.__quesion})
 
     def __miss_guess(self):
         self.__guess_num -= 1
 
-    def __won_player(self):
-        self.__is_won = True
-
-    def winner(self):
-        print(F'----------- Winner is {self.name} -----------')
 
     @classmethod
     def _game_has_winner(cls):
-        for player in cls.players:
+        for player in cls.player_list:
             if player.__is_won:
                 return True
-
-    def __str__(self):
-        return self.name
 
 
 class GameControl:
     def __init__(self):
         while True:
-            for player in PlayerAction.players:
+            for player in PlayerAction.player_list:
                 if not player._game_has_winner():
                     player.debug()
                     player.check_answer()
@@ -75,7 +67,7 @@ if __name__ == '__main__':
             case 'add':
                 PlayerAction()
             case 'list':
-                print(F'{PlayerAction.players}, {len(PlayerAction.players)}')
+                print(F'{PlayerAction.player_list}, {len(PlayerAction.player_list)}')
             case 'reset':
                 PlayerAction.reset_players()
             case 'start':
