@@ -24,17 +24,23 @@ class PlayerAction:
         return self.name
 
     def check_answer(self):
-        answer = int(input(F'{self.name} Pleas, pik number = '))
-        if type(answer) == int:
-            if answer > self.__quesion:
-                print(F'{self.name} Your guess higher')
-            elif answer < self.__quesion:
-                print(F'{self.name} Your guess lower')
-            else:
-                self.__won_player()
-                return self.winner()
+        try:
+            answer = int(input(F'{self.name} Pleas, pik number = '))
+        except:
+            print('pleas inter a number')
+            return self.check_answer()
+
+        if answer > self.__quesion:
+            print(F'{self.name} Your guess is higher')
+        elif answer < self.__quesion:
+            print(F'{self.name} Your guess is lower')
+        else:
+            self.__is_won = True
+            print(F'----------- Winner is {self.name} -----------')
+
+        if not self.__is_won:
             self.__miss_guess()
-            print(F'{self.name}, you have only {self.__guess_num}')
+            print(F'{self.name}, you have only {self.__guess_num} guess')
             print(F'---------------------------')
 
     def __miss_guess(self):
