@@ -18,7 +18,7 @@ class PlayerAction:
 
     def debug(self):
         if self.__debug:
-            print({self.name, self.__quesion})
+            print(f"debug is True : {self.name, self.__quesion}")
 
     def __str__(self):
         return self.name
