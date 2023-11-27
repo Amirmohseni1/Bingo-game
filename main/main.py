@@ -5,7 +5,7 @@ class PlayerAction:
     player_list = []
 
     def __init__(self):
-        self.name = input('Inter Your name: ').strip().lower()
+        self.name = input("Inter Your name: ").strip().lower()
         self.__quesion = randint(1, 10)
         self.__guess_num = 3
         self.__is_won = False
@@ -25,27 +25,26 @@ class PlayerAction:
 
     def check_answer(self):
         try:
-            answer = int(input(F'{self.name} Pleas, pik number = '))
+            answer = int(input(f"{self.name} Pleas, pik number = "))
         except:
-            print('pleas inter a number')
+            print("pleas inter a number")
             return self.check_answer()
 
         if answer > self.__quesion:
-            print(F'{self.name} Your guess is higher')
+            print(f"{self.name} Your guess is higher")
         elif answer < self.__quesion:
-            print(F'{self.name} Your guess is lower')
+            print(f"{self.name} Your guess is lower")
         else:
             self.__is_won = True
-            print(F'----------- Winner is {self.name} -----------')
+            print(f"----------- Winner is {self.name} -----------")
 
         if not self.__is_won:
             self.__miss_guess()
-            print(F'{self.name}, you have only {self.__guess_num} guess')
-            print(F'---------------------------')
+            print(f"{self.name}, you have only {self.__guess_num} guess")
+            print(f"---------------------------")
 
     def __miss_guess(self):
         self.__guess_num -= 1
-
 
     @classmethod
     def _game_has_winner(cls):
@@ -65,18 +64,18 @@ class GameControl:
                     break
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     while True:
-        print('add, reset, start, exit, list')
-        task = input('Write your task: ').strip().lower()
+        print("add, reset, start, exit, list")
+        task = input("Write your task: ").strip().lower()
         match task:
-            case 'add':
+            case "add":
                 PlayerAction()
-            case 'list':
-                print(F'{PlayerAction.player_list}, {len(PlayerAction.player_list)}')
-            case 'reset':
+            case "list":
+                print(f"{PlayerAction.player_list}, {len(PlayerAction.player_list)}")
+            case "reset":
                 PlayerAction.reset_players()
-            case 'start':
+            case "start":
                 GameControl()
-            case 'exit':
+            case "exit":
                 break
